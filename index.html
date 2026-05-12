@@ -3,300 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArtDesigner | Portfolio Studio</title>
+    <title>ArtDesigner | Studio</title>
     <style>
-        :root {
-            --dark-teal: #194d4e;    
-            --terracotta: #cc7e6e;   
-            --bg-light: #ffffff;
-            --text-main: #1a1a1a;
-            --soft-bg: #f9f9f7;
-            --whatsapp-green: #25D366;
+        :root { 
+            --dark-teal: #194d4e; 
+            --terracotta: #cc7e6e; 
+            --soft-bg: #f4f4f2; /* רקע ימני נעים לעין */
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-
-        header {
-            padding: 0 5%;
+        
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: white; 
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 1000;
-            border-bottom: 1px solid #eee;
-            height: 90px;
-        }
-
-        .logo-container img { height: 65px; width: auto; display: block; }
-        
-        nav ul { display: flex; list-style: none; gap: 25px; align-items: center; }
-        nav a { text-decoration: none; color: var(--dark-teal); font-weight: 600; transition: 0.3s; }
-        nav a:hover { color: var(--terracotta); }
-
-        .nav-contact-btn {
-            background-color: var(--dark-teal);
-            color: white !important;
-            padding: 12px 28px;
-            border-radius: 50px;
-            transition: all 0.3s;
-        }
-
-        .nav-contact-btn:hover { background-color: var(--terracotta); transform: scale(1.05); }
-
-        .filter-menu {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
-            padding: 40px 5% 30px; background-color: var(--soft-bg);
-        }
-
-        .filter-btn {
-            padding: 8px 22px; border: 1.5px solid var(--dark-teal);
-            background: transparent; color: var(--dark-teal);
-            cursor: pointer; font-weight: 600; transition: 0.3s; border-radius: 4px;
-        }
-
-        .filter-btn.active { background-color: var(--terracotta); border-color: var(--terracotta); color: white; }
-
-        /* גלריה רספונסיבית מעודכנת */
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 0 5% 60px;
-            background-color: var(--soft-bg);
-        }
-
-        .work-item {
-            background-color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            aspect-ratio: 1 / 1;
         }
 
-        .work-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-        .work-item:hover img { transform: scale(1.05); }
+        /* צד ימין - תוכן נקי */
+        .content-side {
+            width: 40%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--soft-bg);
+            z-index: 10;
+            text-align: center;
+        }
 
-        /* אודות */
-        .about-section { padding: 100px 5%; background-color: var(--soft-bg); text-align: center; border-top: 1px solid #eee; }
-        .about-container { max-width: 900px; margin: 0 auto; }
-        .about-section h2 { font-size: 2.5rem; color: var(--dark-teal); margin-bottom: 30px; position: relative; display: inline-block; }
-        .about-section h2::after { content: ''; position: absolute; bottom: -10px; left: 20%; right: 20%; height: 3px; background-color: var(--terracotta); }
-        .about-content { font-size: 1.2rem; color: #444; line-height: 1.8; }
-        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
-        .feature-item { padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .feature-item h3 { color: var(--terracotta); margin-bottom: 15px; }
+        .logo-area { margin-bottom: 40px; }
+        .logo-area img { height: 100px; width: auto; } /* לוגו גדול ללא קפסולה */
 
-        /* צור קשר */
-        .contact-section { padding: 100px 5%; background-color: #ffffff; }
-        .contact-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; text-align: right; }
-        .contact-info h2 { font-size: 2rem; color: var(--dark-teal); margin-bottom: 20px; }
-        .info-item { margin-bottom: 20px; }
-        .info-item span { font-size: 1.2rem; font-weight: 500; color: var(--dark-teal); }
+        h1 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 35px; font-weight: 300; }
+
+        .gallery-nav { display: flex; flex-direction: column; gap: 15px; align-items: center; }
         
-        .whatsapp-link {
-            display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; padding: 12px 24px;
-            background-color: var(--whatsapp-green); color: white; text-decoration: none; border-radius: 50px;
-            font-weight: bold; transition: 0.3s;
+        .main-btn {
+            padding: 12px 35px; /* קפסולות קצרות יותר */
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--dark-teal);
+            border: 1.5px solid var(--dark-teal);
+            border-radius: 50px;
+            transition: 0.3s;
+            min-width: 220px;
         }
 
-        .contact-form { background: var(--soft-bg); padding: 40px; border-radius: 8px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
-        .submit-btn { width: 100%; padding: 18px; background: var(--dark-teal); color: white; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; border-radius: 4px; }
-        .submit-btn:hover { background: var(--terracotta); }
-
-        #lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
-        #lightbox img { max-width: 90%; max-height: 85%; border: 3px solid white; }
-        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
-        .nav-btn { position: absolute; top: 50%; color: white; font-size: 40px; padding: 20px; cursor: pointer; }
-        .prev { right: 10px; } .next { left: 10px; }
-
-        footer { padding: 40px; text-align: center; border-top: 1px solid #eee; background: var(--soft-bg); }
-
-        /* Media Queries - כאן קורה הקסם הרספונסיבי */
-        @media (max-width: 900px) {
-            header { height: auto; padding: 15px 5%; flex-direction: column; gap: 15px; }
-            .work-grid { grid-template-columns: repeat(2, 1fr); }
-            .contact-container, .features { grid-template-columns: 1fr; gap: 30px; }
+        .main-btn:hover {
+            background: var(--dark-teal);
+            color: white;
         }
 
-        @media (max-width: 600px) {
-            .work-grid { grid-template-columns: 1fr; }
-            .about-section h2 { font-size: 1.8rem; }
-            .nav-contact-btn { padding: 8px 18px; }
-            nav ul { gap: 12px; }
+        /* צד שמאל - מוזאיקה הדוקה */
+        .grid-side {
+            width: 60%;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* ריבועים קטנים יותר */
+            grid-template-rows: repeat(auto-fill, 1fr);
+            background: #eee;
+        }
+
+        .grid-item {
+            aspect-ratio: 1 / 1;
+            background-size: cover;
+            background-position: center;
+            border: 1.5px solid var(--dark-teal); /* קו חיצוני ירוק */
+            transition: opacity 0.8s ease;
+        }
+
+        /* קפסולה צפה תחתונה עם אפקט מילוי */
+        .floating-footer {
+            position: absolute;
+            bottom: 30px;
+            background: white;
+            border-radius: 100px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+        }
+
+        .floating-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            background: var(--terracotta);
+            transition: width 0.6s ease;
+            z-index: 0;
+        }
+
+        .floating-footer:hover::before { width: 100%; }
+
+        .footer-inner {
+            display: flex;
+            gap: 25px;
+            padding: 10px 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .floating-footer a {
+            text-decoration: none;
+            color: var(--dark-teal);
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: color 0.4s;
+        }
+
+        .floating-footer:hover a { color: white; }
+
+        @media (max-width: 1024px) {
+            body { flex-direction: column-reverse; overflow-y: auto; }
+            .content-side, .grid-side { width: 100%; height: auto; }
+            .grid-side { grid-template-columns: repeat(4, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo-container"><img src="images/logo.svg" alt="ArtDesigner"></a>
-        <nav>
-            <ul>
-                <li><a href="#work">תיק עבודות</a></li>
-                <li><a href="#about">אודות</a></li>
-                <li><a href="#contact" class="nav-contact-btn">צור קשר</a></li>
-            </ul>
+    <div class="content-side">
+        <div class="logo-area">
+            <img src="images/logo.svg" alt="ArtDesigner">
+        </div>
+        <h1>השראה. עיצוב. אמנות.</h1>
+        
+        <div class="gallery-nav">
+            <a href="portfolio.html?cat=advertising" class="main-btn">תיק עבודות: פרסום</a>
+            <a href="portfolio.html?cat=campaigns" class="main-btn">תיק עבודות: קמפיינים</a>
+        </div>
+
+        <nav class="floating-footer">
+            <div class="footer-inner">
+                <a href="about.html">אודות</a>
+                <a href="about.html#contact">צור קשר</a>
+            </div>
         </nav>
-    </header>
-
-    <div class="filter-menu">
-        <button class="filter-btn active" onclick="filterGallery('all', event)">הכל</button>
-        <button class="filter-btn" onclick="filterGallery('advertising', event)">פרסום</button>
-        <button class="filter-btn" onclick="filterGallery('campaigns', event)">קמפיינים</button>
     </div>
 
-    <section id="work" class="work-grid">
-        <div class="work-item advertising"><img src="advertising/advertising_01.jpg" alt="1"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_02.jpg" alt="2"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_03.jpg" alt="3"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_04.jpg" alt="4"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_05.jpg" alt="5"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_06.jpg" alt="6"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_07.jpg" alt="7"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_08.jpg" alt="8"></div>
-
-        <div class="work-item campaigns"><img src="campaigns/campaigns_01.jpg" alt="C1"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_02.jpg" alt="C2"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_03.jpg" alt="C3"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_04.jpg" alt="C4"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_05.jpg" alt="C5"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_06.jpg" alt="C6"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_07.jpg" alt="C7"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_08.jpg" alt="C8"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_10.jpg" alt="C10"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_11.jpg" alt="C11"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_12.jpg" alt="C12"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_13.jpg" alt="C13"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_14.jpg" alt="C14"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_15.jpg" alt="C15"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_16.jpg" alt="C16"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_17.jpg" alt="C17"></div>
-
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_01.jpg" alt="T1"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_02.jpg" alt="T2"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_03.jpg" alt="T3"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_04.jpg" alt="T4"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_05.jpg" alt="T5"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_06.jpg" alt="T6"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_07.jpg" alt="T7"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_08.jpg" alt="T8"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_09.jpg" alt="T9"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_10.jpg" alt="T10"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_11.jpg" alt="T11"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_12.jpg" alt="T12"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_13.jpg" alt="T13"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_14.jpg" alt="T14"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_15.jpg" alt="T15"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_16.jpg" alt="T16"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_17.jpg" alt="T17"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_18.jpg" alt="T18"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_19.jpg" alt="T19"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_20.jpg" alt="T20"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_21.jpg" alt="T21"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_22.jpg" alt="T22"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_23.jpg" alt="T23"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_24.jpg" alt="T24"></div>
-        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_25.jpg" alt="T25"></div>
-    </section>
-
-    <section id="about" class="about-section">
-        <div class="about-container">
-            <h2>קצת עלינו</h2>
-            <div class="about-content">
-                <p>סטודיו <strong>ArtDesigner</strong> הוקם מתוך תשוקה לחיבור שבין אסטרטגיה חדה לעיצוב בלתי מתפשר. אנחנו מתמחים ביצירת שפה ויזואלית שמדברת בשם המותג שלכם, תוך דגש על <strong>מינימליזם, ניקיון ודיוק מוחלט</strong>.</p>
-            </div>
-            <div class="features">
-                <div class="feature-item"><h3>דיוק</h3><p>כל פיקסל נבחן בזכוכית מגדלת כדי להבטיח תוצאה מושלמת.</p></div>
-                <div class="feature-item"><h3>חדשנות</h3><p>שימוש בכלי AI מתקדמים ליצירת ויז'ואלים ייחודיים.</p></div>
-                <div class="feature-item"><h3>נשמה</h3><p>כל מותג מקבל הבנה עמוקה של הערכים והמטרות שלו.</p></div>
-            </div>
+    <div class="grid-side" id="mosaicGrid">
         </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <div class="contact-container">
-            <div class="contact-info">
-                <h2>בואו נדבר</h2>
-                <div class="info-item"><span>052-7604121</span></div>
-                <div class="info-item"><span>ameirm16@gmail.com</span></div>
-                <a href="https://wa.me/972527604121" class="whatsapp-link">שלחו ווטסאפ</a>
-            </div>
-            <div class="contact-form">
-                <form>
-                    <div class="form-group"><input type="text" placeholder="שם מלא" required></div>
-                    <div class="form-group"><input type="email" placeholder="אימייל" required></div>
-                    <div class="form-group"><textarea rows="5" placeholder="ספרו לי על הפרויקט שלכם..." required></textarea></div>
-                    <button type="submit" class="submit-btn">שליחת הודעה</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <div id="lightbox">
-        <span class="close-btn" onclick="closeLightbox()">&times;</span>
-        <span class="nav-btn prev" onclick="changeImage(-1)">&#10095;</span>
-        <img id="lightbox-img" src="">
-        <span class="nav-btn next" onclick="changeImage(1)">&#10094;</span>
-    </div>
-
-    <footer><p>&copy; 2026 ArtDesigner | השראה, עיצוב ואמנות</p></footer>
 
     <script>
-        function filterGallery(category, event) {
-            const items = document.querySelectorAll('.work-item');
-            const btns = document.querySelectorAll('.filter-btn');
-            btns.forEach(btn => btn.classList.remove('active'));
-            if(event) event.target.classList.add('active');
-            items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) { item.style.display = 'block'; } 
-                else { item.style.display = 'none'; }
-            });
-            updateVisibleImages();
+        const images = [
+            'advertising/advertising_01.jpg', 'advertising/advertising_02.jpg',
+            'advertising/advertising_03.jpg', 'advertising/advertising_04.jpg',
+            'campaigns/campaigns_01.jpg', 'campaigns/campaigns_02.jpg',
+            'campaigns/campaigns_03.jpg', 'campaigns/campaigns_04.jpg',
+            'torani-chaisidi/torani-chaisidi_01.jpg', 'torani-chaisidi/torani-chaisidi_02.jpg'
+        ];
+
+        const grid = document.getElementById('mosaicGrid');
+        const totalItems = 36; // ממלא את כל השטח בריבועים קטנים
+
+        for (let i = 0; i < totalItems; i++) {
+            const item = document.createElement('div');
+            item.className = 'grid-item';
+            item.style.backgroundImage = `url('${images[Math.floor(Math.random() * images.length)]}')`;
+            grid.appendChild(item);
         }
 
-        let currentIdx = 0;
-        let visibleImages = [];
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-
-        function updateVisibleImages() {
-            visibleImages = Array.from(document.querySelectorAll('.work-item'))
-                .filter(item => item.style.display !== 'none')
-                .map(item => item.querySelector('img'));
+        function updateRandomTile() {
+            const items = document.querySelectorAll('.grid-item');
+            const randomItem = items[Math.floor(Math.random() * items.length)];
+            const newImg = images[Math.floor(Math.random() * images.length)];
+            
+            randomItem.style.opacity = 0.3;
+            setTimeout(() => {
+                randomItem.style.backgroundImage = `url('${newImg}')`;
+                randomItem.style.opacity = 1;
+            }, 800);
         }
 
-        function initGallery() {
-            document.querySelectorAll('.work-item img').forEach((img) => {
-                img.onclick = () => {
-                    updateVisibleImages();
-                    currentIdx = visibleImages.indexOf(img);
-                    openLightbox();
-                };
-            });
-        }
-
-        function openLightbox() { lightbox.style.display = 'flex'; updateLightbox(); }
-        function closeLightbox() { lightbox.style.display = 'none'; }
-        function updateLightbox() { lightboxImg.src = visibleImages[currentIdx].src; }
-        function changeImage(step) {
-            currentIdx = (currentIdx + step + visibleImages.length) % visibleImages.length;
-            updateLightbox();
-        }
-
-        initGallery();
+        setInterval(updateRandomTile, 2000); // קצב החלפה סביר
     </script>
 </body>
 </html>
