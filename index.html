@@ -37,12 +37,7 @@
             height: 90px;
         }
 
-        .logo-container img { 
-            height: 65px; 
-            width: auto; 
-            display: block;
-            transition: transform 0.3s; 
-        }
+        .logo-container img { height: 65px; width: auto; display: block; }
         
         nav ul { display: flex; list-style: none; gap: 25px; align-items: center; }
         nav a { text-decoration: none; color: var(--dark-teal); font-weight: 600; transition: 0.3s; }
@@ -53,24 +48,10 @@
             color: white !important;
             padding: 12px 28px;
             border-radius: 50px;
-            display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(25, 77, 78, 0.2);
+            transition: all 0.3s;
         }
 
-        .nav-contact-btn:hover {
-            background-color: var(--terracotta);
-            animation: shake 0.5s ease-in-out;
-            box-shadow: 0 6px 15px rgba(204, 126, 110, 0.3);
-        }
-
-        @keyframes shake {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(3deg); }
-            50% { transform: rotate(-3deg); }
-            75% { transform: rotate(2deg); }
-            100% { transform: rotate(0deg); }
-        }
+        .nav-contact-btn:hover { background-color: var(--terracotta); transform: scale(1.05); }
 
         .filter-menu {
             display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
@@ -83,73 +64,85 @@
             cursor: pointer; font-weight: 600; transition: 0.3s; border-radius: 4px;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            background-color: var(--terracotta); border-color: var(--terracotta); color: white;
-        }
+        .filter-btn.active { background-color: var(--terracotta); border-color: var(--terracotta); color: white; }
 
+        /* גלריה רספונסיבית מעודכנת */
         .work-grid {
-            columns: 3 300px; column-gap: 20px; padding: 0 5% 60px; background-color: var(--soft-bg);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 0 5% 60px;
+            background-color: var(--soft-bg);
         }
 
         .work-item {
-            break-inside: avoid; margin-bottom: 20px; background-color: #fff;
-            border-radius: 2px; cursor: pointer; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: inline-block; width: 100%;
+            background-color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            aspect-ratio: 1 / 1;
         }
 
-        .work-item img { width: 100%; height: auto; display: block; transition: 0.6s; }
-        .work-item:hover img { transform: scale(1.03); }
+        .work-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .work-item:hover img { transform: scale(1.05); }
 
         /* אודות */
         .about-section { padding: 100px 5%; background-color: var(--soft-bg); text-align: center; border-top: 1px solid #eee; }
         .about-container { max-width: 900px; margin: 0 auto; }
         .about-section h2 { font-size: 2.5rem; color: var(--dark-teal); margin-bottom: 30px; position: relative; display: inline-block; }
         .about-section h2::after { content: ''; position: absolute; bottom: -10px; left: 20%; right: 20%; height: 3px; background-color: var(--terracotta); }
-        .about-content { font-size: 1.25rem; color: #444; line-height: 1.8; margin-top: 20px; }
+        .about-content { font-size: 1.2rem; color: #444; line-height: 1.8; }
         .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
         .feature-item { padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .feature-item h3 { color: var(--terracotta); margin-bottom: 15px; font-size: 1.4rem; }
+        .feature-item h3 { color: var(--terracotta); margin-bottom: 15px; }
 
         /* צור קשר */
         .contact-section { padding: 100px 5%; background-color: #ffffff; }
         .contact-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; text-align: right; }
-        .contact-info h2 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 20px; line-height: 1.2; }
-        .info-item { margin-bottom: 25px; }
-        .info-item h4 { color: var(--terracotta); font-size: 0.9rem; margin-bottom: 5px; }
-        .info-item span { font-size: 1.2rem; font-weight: 500; color: var(--dark-teal); display: block; }
+        .contact-info h2 { font-size: 2rem; color: var(--dark-teal); margin-bottom: 20px; }
+        .info-item { margin-bottom: 20px; }
+        .info-item span { font-size: 1.2rem; font-weight: 500; color: var(--dark-teal); }
         
         .whatsapp-link {
             display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; padding: 12px 24px;
             background-color: var(--whatsapp-green); color: white; text-decoration: none; border-radius: 50px;
-            font-weight: bold; transition: 0.3s; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            font-weight: bold; transition: 0.3s;
         }
-        .whatsapp-link:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4); }
 
         .contact-form { background: var(--soft-bg); padding: 40px; border-radius: 8px; }
         .form-group { margin-bottom: 20px; }
-        .form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 1rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
         .submit-btn { width: 100%; padding: 18px; background: var(--dark-teal); color: white; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; border-radius: 4px; }
         .submit-btn:hover { background: var(--terracotta); }
 
         #lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
-        #lightbox img { max-width: 85%; max-height: 85%; border: 3px solid white; }
-        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 50px; cursor: pointer; }
-        .nav-btn { position: absolute; top: 50%; color: white; font-size: 50px; padding: 20px; cursor: pointer; transition: 0.3s; }
-        .nav-btn.disabled { opacity: 0.2; cursor: default; }
+        #lightbox img { max-width: 90%; max-height: 85%; border: 3px solid white; }
+        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+        .nav-btn { position: absolute; top: 50%; color: white; font-size: 40px; padding: 20px; cursor: pointer; }
         .prev { right: 10px; } .next { left: 10px; }
 
         footer { padding: 40px; text-align: center; border-top: 1px solid #eee; background: var(--soft-bg); }
 
-        @media (max-width: 900px) { .contact-container, .features { grid-template-columns: 1fr; gap: 40px; } }
-        @media (max-width: 600px) { .work-grid { columns: 2 150px; } }
+        /* Media Queries - כאן קורה הקסם הרספונסיבי */
+        @media (max-width: 900px) {
+            header { height: auto; padding: 15px 5%; flex-direction: column; gap: 15px; }
+            .work-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-container, .features { grid-template-columns: 1fr; gap: 30px; }
+        }
+
+        @media (max-width: 600px) {
+            .work-grid { grid-template-columns: 1fr; }
+            .about-section h2 { font-size: 1.8rem; }
+            .nav-contact-btn { padding: 8px 18px; }
+            nav ul { gap: 12px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo-container">
-            <img src="images/logo.svg" alt="ArtDesigner">
-        </a>
+        <a href="#" class="logo-container"><img src="images/logo.svg" alt="ArtDesigner"></a>
         <nav>
             <ul>
                 <li><a href="#work">תיק עבודות</a></li>
@@ -236,20 +229,16 @@
     <section id="contact" class="contact-section">
         <div class="contact-container">
             <div class="contact-info">
-                <h2>וואו, איזה עבודות מדהימות,<br>אני גם יכול לקבל כאלו?</h2>
-                <div class="info-item"><h4>דברו איתי</h4><span>052-7604121</span></div>
-                <div class="info-item"><h4>שלחו מייל</h4><span>ameirm16@gmail.com</span></div>
-                <div class="info-item">
-                    <a href="https://wa.me/972527604121?text=%D7%90%D7%A0%D7%99%20%D7%91%D7%90%D7%9E%D7%AA%20%D7%97%D7%99%D7%99%D7%91%20%D7%9C%D7%93%D7%91%D7%A8%20%D7%90%D7%99%D7%AA%D7%9A%2C%20%D7%94%D7%AA%D7%A8%D7%A9%D7%9E%D7%AA%D7%99%20%D7%A2%D7%9E%D7%95%D7%A7%D7%95%D7%AA%20%D7%9E%D7%94%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA%20%D7%95%D7%A8%D7%95%D7%A6%D7%94%20%D7%92%D7%9D%20%D7%9B%D7%90%D7%9C%D7%95%20-%20-%20-" target="_blank" class="whatsapp-link">
-                        שלחו ווטסאפ
-                    </a>
-                </div>
+                <h2>בואו נדבר</h2>
+                <div class="info-item"><span>052-7604121</span></div>
+                <div class="info-item"><span>ameirm16@gmail.com</span></div>
+                <a href="https://wa.me/972527604121" class="whatsapp-link">שלחו ווטסאפ</a>
             </div>
             <div class="contact-form">
                 <form>
                     <div class="form-group"><input type="text" placeholder="שם מלא" required></div>
                     <div class="form-group"><input type="email" placeholder="אימייל" required></div>
-                    <div class="form-group"><textarea rows="5" placeholder="השדה הזה סתם בשביל הרושם, אבל תרשום תרשום..." required></textarea></div>
+                    <div class="form-group"><textarea rows="5" placeholder="ספרו לי על הפרויקט שלכם..." required></textarea></div>
                     <button type="submit" class="submit-btn">שליחת הודעה</button>
                 </form>
             </div>
@@ -258,9 +247,9 @@
 
     <div id="lightbox">
         <span class="close-btn" onclick="closeLightbox()">&times;</span>
-        <span class="nav-btn prev" id="lightbox-prev" onclick="changeImage(-1)">&#10095;</span>
+        <span class="nav-btn prev" onclick="changeImage(-1)">&#10095;</span>
         <img id="lightbox-img" src="">
-        <span class="nav-btn next" id="lightbox-next" onclick="changeImage(1)">&#10094;</span>
+        <span class="nav-btn next" onclick="changeImage(1)">&#10094;</span>
     </div>
 
     <footer><p>&copy; 2026 ArtDesigner | השראה, עיצוב ואמנות</p></footer>
@@ -272,7 +261,7 @@
             btns.forEach(btn => btn.classList.remove('active'));
             if(event) event.target.classList.add('active');
             items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) { item.style.display = 'inline-block'; } 
+                if (category === 'all' || item.classList.contains(category)) { item.style.display = 'block'; } 
                 else { item.style.display = 'none'; }
             });
             updateVisibleImages();
@@ -282,8 +271,6 @@
         let visibleImages = [];
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-        const prevBtn = document.getElementById('lightbox-prev');
-        const nextBtn = document.getElementById('lightbox-next');
 
         function updateVisibleImages() {
             visibleImages = Array.from(document.querySelectorAll('.work-item'))
@@ -301,32 +288,15 @@
             });
         }
 
-        function openLightbox() { if (currentIdx === -1) return; lightbox.style.display = 'flex'; updateLightbox(); }
+        function openLightbox() { lightbox.style.display = 'flex'; updateLightbox(); }
         function closeLightbox() { lightbox.style.display = 'none'; }
-        function updateLightbox() {
-            if (visibleImages.length === 0) return;
-            lightboxImg.src = visibleImages[currentIdx].src;
-            if (currentIdx === 0) prevBtn.classList.add('disabled'); else prevBtn.classList.remove('disabled');
-            if (currentIdx === visibleImages.length - 1) nextBtn.classList.add('disabled'); else nextBtn.classList.remove('disabled');
-        }
-
+        function updateLightbox() { lightboxImg.src = visibleImages[currentIdx].src; }
         function changeImage(step) {
-            if (visibleImages.length === 0) return;
-            let newIdx = currentIdx + step;
-            if (newIdx >= 0 && newIdx < visibleImages.length) { currentIdx = newIdx; updateLightbox(); }
+            currentIdx = (currentIdx + step + visibleImages.length) % visibleImages.length;
+            updateLightbox();
         }
-
-        lightbox.onclick = (e) => { if (e.target === lightbox) closeLightbox(); };
-        document.addEventListener('keydown', (e) => {
-            if (lightbox.style.display === 'flex') {
-                if (e.key === "ArrowLeft" && currentIdx > 0) changeImage(-1);
-                if (e.key === "ArrowRight" && currentIdx < visibleImages.length - 1) changeImage(1);
-                if (e.key === "Escape") closeLightbox();
-            }
-        });
 
         initGallery();
-        updateVisibleImages();
     </script>
 </body>
 </html>
