@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtDesigner | Portfolio Studio</title>
+    <style>
+        :root {
+            --dark-teal: #194d4e;    
+            --terracotta: #cc7e6e;   
+            --bg-light: #ffffff;
+            --text-main: #1a1a1a;
+            --soft-bg: #f9f9f7;
+            --whatsapp-green: #25D366;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+            height: 90px;
+        }
+
+        .logo-container img { height: 65px; width: auto; transition: transform 0.3s; }
+        
+        nav ul { display: flex; list-style: none; gap: 25px; align-items: center; }
+        nav a { text-decoration: none; color: var(--dark-teal); font-weight: 600; transition: 0.3s; }
+
+        .nav-contact-btn {
+            background-color: var(--dark-teal);
+            color: white !important;
+            padding: 12px 28px;
+            border-radius: 50px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(25, 77, 78, 0.2);
+        }
+
+        .nav-contact-btn:hover {
+            background-color: var(--terracotta);
+            animation: shake 0.5s ease-in-out;
+            box-shadow: 0 6px 15px rgba(204, 126, 110, 0.3);
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(3deg); }
+            50% { transform: rotate(-3deg); }
+            75% { transform: rotate(2deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .filter-menu {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
+            padding: 40px 5% 30px; background-color: var(--soft-bg);
+        }
+
+        .filter-btn {
+            padding: 8px 22px; border: 1.5px solid var(--dark-teal);
+            background: transparent; color: var(--dark-teal);
+            cursor: pointer; font-weight: 600; transition: 0.3s; border-radius: 4px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--terracotta); border-color: var(--terracotta); color: white;
+        }
+
+        .work-grid {
+            columns: 3 300px; column-gap: 20px; padding: 0 5% 60px; background-color: var(--soft-bg);
+        }
+
+        .work-item {
+            break-inside: avoid; margin-bottom: 20px; background-color: #fff;
+            border-radius: 2px; cursor: pointer; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: inline-block; width: 100%;
+        }
+
+        .work-item img { width: 100%; height: auto; display: block; transition: 0.6s; }
+        .work-item:hover img { transform: scale(1.03); }
+
+        .contact-section { padding: 100px 5%; background-color: #ffffff; }
+        .contact-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; text-align: right; }
+        .contact-info h2 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 20px; line-height: 1.2; }
+        .info-item { margin-bottom: 25px; }
+        .info-item h4 { color: var(--terracotta); font-size: 0.9rem; margin-bottom: 5px; }
+        .info-item span { font-size: 1.2rem; font-weight: 500; color: var(--dark-teal); display: block; }
+        
+        .whatsapp-link {
+            display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; padding: 10px 20px;
+            background-color: var(--whatsapp-green); color: white; text-decoration: none; border-radius: 50px;
+            font-weight: bold; transition: 0.3s; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+        .whatsapp-link:hover { transform: translateY(-3px); }
+        .whatsapp-icon { width: 24px; height: 24px; fill: white; }
+
+        .contact-form { background: var(--soft-bg); padding: 40px; border-radius: 8px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
+        .submit-btn { width: 100%; padding: 18px; background: var(--dark-teal); color: white; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; border-radius: 4px; }
+        .submit-btn:hover { background: var(--terracotta); }
+
+        #lightbox {
+            display: none; position: fixed; z-index: 2000; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            justify-content: center; align-items: center;
+        }
+        #lightbox img { max-width: 85%; max-height: 85%; border: 3px solid white; }
+        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 50px; cursor: pointer; }
+        .nav-btn { position: absolute; top: 50%; color: white; font-size: 50px; padding: 20px; cursor: pointer; transition: 0.3s; }
+        .nav-btn.disabled { opacity: 0.2; cursor: default; }
+        .prev { right: 10px; } .next { left: 10px; }
+
+        footer { padding: 40px; text-align: center; border-top: 1px solid #eee; background: var(--soft-bg); }
+
+        @media (max-width: 900px) { .contact-container { grid-template-columns: 1fr; gap: 40px; } }
+        @media (max-width: 600px) { .work-grid { columns: 2 150px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-container"><img src="images/logo.svg" alt="ArtDesigner"></a>
+        <nav>
+            <ul>
+                <li><a href="#work">תיק עבודות</a></li>
+                <li><a href="#contact" class="nav-contact-btn">צור קשר</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="filter-menu">
+        <button class="filter-btn active" onclick="filterGallery('all', event)">הכל</button>
+        <button class="filter-btn" onclick="filterGallery('advertising', event)">פרסום</button>
+        <button class="filter-btn" onclick="filterGallery('campaigns', event)">קמפיינים</button>
+    </div>
+
+    <section id="work" class="work-grid">
+        <div class="work-item advertising"><img src="advertising/advertising_01.jpg" alt="1"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_02.jpg" alt="2"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_03.jpg" alt="3"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_04.jpg" alt="4"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_05.jpg" alt="5"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_06.jpg" alt="6"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_07.jpg" alt="7"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_08.jpg" alt="8"></div>
+
+        <div class="work-item campaigns"><img src="campaigns/campaigns_01.jpg" alt="C1"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_02.jpg" alt="C2"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_03.jpg" alt="C3"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_04.jpg" alt="C4"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_05.jpg" alt="C5"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_06.jpg" alt="C6"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_07.jpg" alt="C7"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_08.jpg" alt="C8"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_09.jpg" alt="C9"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_10.jpg" alt="C10"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_11.jpg" alt="C11"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_12.jpg" alt="C12"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_13.jpg" alt="C13"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_14.jpg" alt="C14"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_15.jpg" alt="C15"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_16.jpg" alt="C16"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_17.jpg" alt="C17"></div>
+
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_01.jpg" alt="T1"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_02.jpg" alt="T2"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_03.jpg" alt="T3"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_04.jpg" alt="T4"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_05.jpg" alt="T5"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_06.jpg" alt="T6"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_07.jpg" alt="T7"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_08.jpg" alt="T8"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_09.jpg" alt="T9"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_10.jpg" alt="T10"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_11.jpg" alt="T11"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_12.jpg" alt="T12"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_13.jpg" alt="T13"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_14.jpg" alt="T14"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_15.jpg" alt="T15"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_16.jpg" alt="T16"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_17.jpg" alt="T17"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_18.jpg" alt="T18"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_19.jpg" alt="T19"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_20.jpg" alt="T20"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_21.jpg" alt="T21"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_22.jpg" alt="T22"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_23.jpg" alt="T23"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_24.jpg" alt="T24"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_25.jpg" alt="T25"></div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>וואו, איזה עבודות מדהימות,<br>אני גם יכול לקבל כאלו?</h2>
+                <div class="info-item"><h4>דברו איתי</h4><span>052-7604121</span></div>
+                <div class="info-item"><h4>שלחו מייל</h4><span>ameirm16@gmail.com</span></div>
+                <div class="info-item">
+                    <a href="https://wa.me/972527604121?text=%D7%90%D7%A0%D7%99%20%D7%91%D7%90%D7%9E%D7%AA%20%D7%97%D7%99%D7%99%D7%91%20%D7%9C%D7%93%D7%91%D7%A8%20%D7%90%D7%99%D7%AA%D7%9A%2C%20%D7%94%D7%AA%D7%A8%D7%A9%D7%9E%D7%AA%D7%99%20%D7%A2%D7%9E%D7%95%D7%A7%D7%95%D7%AA%20%D7%9E%D7%94%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA%20%D7%95%D7%A8%D7%95%D7%A6%D7%94%20%D7%92%D7%9D%20%D7%9B%D7%90%D7%9C%D7%95%20-%20-%20-" target="_blank" class="whatsapp-link">
+                        <svg class="whatsapp-icon" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.8 69.4 27.2 106.2 27.2 122.4 0 222-99.6 222-222 0-59.3-23-115.1-65-157.1zM223.9 445.9c-33.1 0-65.5-8.9-93.7-25.7l-6.7-4-69.6 18.3 18.7-67.9-4.4-7c-18.4-29.4-28.1-63.3-28.1-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.2-3.2-5.6-.3-8.6 2.4-11.3 2.5-2.5 5.6-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.5-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                        שלחו ווטסאפ
+                    </a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group"><input type="text" placeholder="שם מלא" required></div>
+                    <div class="form-group"><input type="email" placeholder="אימייל" required></div>
+                    <div class="form-group"><textarea rows="5" placeholder="השדה הזה סתם בשביל הרושם, אבל תרשום תרשום..." required></textarea></div>
+                    <button type="submit" class="submit-btn">שליחת הודעה</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div id="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <span class="nav-btn prev" id="lightbox-prev" onclick="changeImage(-1)">&#10095;</span>
+        <img id="lightbox-img" src="">
+        <span class="nav-btn next" id="lightbox-next" onclick="changeImage(1)">&#10094;</span>
+    </div>
+
+    <footer><p>&copy; 2026 ArtDesigner | השראה, עיצוב ואמנות</p></footer>
+
+    <script>
+        function filterGallery(category, event) {
+            const items = document.querySelectorAll('.work-item');
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'inline-block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            updateVisibleImages();
+        }
+
+        let currentIdx = 0;
+        let visibleImages = [];
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const prevBtn = document.getElementById('lightbox-prev');
+        const nextBtn = document.getElementById('lightbox-next');
+
+        function updateVisibleImages() {
+            visibleImages = Array.from(document.querySelectorAll('.work-item'))
+                .filter(item => item.style.display !== 'none')
+                .map(item => item.querySelector('img'));
+        }
+
+        function initGallery() {
+            document.querySelectorAll('.work-item img').forEach((img) => {
+                img.onclick = () => {
+                    updateVisibleImages();
+                    currentIdx = visibleImages.indexOf(img);
+                    openLightbox();
+                };
+            });
+        }
+
+        function openLightbox() {
+            if (currentIdx === -1) return;
+            lightbox.style.display = 'flex';
+            updateLightbox();
+        }
+
+        function closeLightbox() { lightbox.style.display = 'none'; }
+
+        function updateLightbox() {
+            if (visibleImages.length === 0) return;
+            lightboxImg.src = visibleImages[currentIdx].src;
+            if (currentIdx === 0) prevBtn.classList.add('disabled');
+            else prevBtn.classList.remove('disabled');
+            if (currentIdx === visibleImages.length - 1) nextBtn.classList.add('disabled');
+            else nextBtn.classList.remove('disabled');
+        }
+
+        function changeImage(step) {
+            if (visibleImages.length === 0) return;
+            let newIdx = currentIdx + step;
+            if (newIdx >= 0 && newIdx < visibleImages.length) {
+                currentIdx = newIdx;
+                updateLightbox();
+            }
+        }
+
+        lightbox.onclick = (e) => { if (e.target === lightbox) closeLightbox(); };
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === "ArrowLeft" && currentIdx > 0) changeImage(-1);
+                if (e.key === "ArrowRight" && currentIdx < visibleImages.length - 1) changeImage(1);
+                if (e.key === "Escape") closeLightbox();
+            }
+        });
+
+        initGallery();
+        updateVisibleImages();
+    </script>
+</body>
+</html>
