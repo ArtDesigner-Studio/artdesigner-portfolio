@@ -51,13 +51,11 @@
             border-radius: 50px;
             display: inline-block;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(25, 77, 78, 0.2);
         }
 
         .nav-contact-btn:hover {
             background-color: var(--terracotta);
             animation: shake 0.5s ease-in-out;
-            box-shadow: 0 6px 15px rgba(204, 126, 110, 0.3);
         }
 
         @keyframes shake {
@@ -83,21 +81,22 @@
 
         .filter-btn.active { background-color: var(--terracotta); border-color: var(--terracotta); color: white; }
 
-        /* תיקון הגלריה ל-Grid יציב כדי למנוע חורים */
         .work-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
+            columns: 5 250px;
+            column-gap: 20px;
             padding: 0 5% 60px;
             background-color: var(--soft-bg);
         }
 
         .work-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
             background-color: #fff;
             border-radius: 2px;
             cursor: pointer;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: inline-block;
             width: 100%;
         }
 
@@ -113,13 +112,10 @@
         .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
         .feature-item { padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .feature-item i { font-size: 2rem; color: var(--terracotta); margin-bottom: 15px; }
-        .feature-item h3 { color: var(--dark-teal); margin-bottom: 10px; font-size: 1.4rem; }
 
         .contact-section { padding: 100px 5%; background-color: #ffffff; scroll-margin-top: 90px; }
         .contact-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; text-align: right; }
         .contact-info h2 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 20px; }
-        .info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .info-item i { color: var(--terracotta); font-size: 1.25rem; }
         
         .whatsapp-link {
             display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; padding: 12px 24px;
@@ -137,7 +133,8 @@
         #lightbox img { max-width: 85%; max-height: 85%; border: 3px solid white; }
         .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 35px; cursor: pointer; }
         .nav-btn { position: absolute; top: 50%; color: white; font-size: 40px; padding: 20px; cursor: pointer; user-select: none; transition: 0.3s; }
-        .nav-btn:hover { color: var(--terracotta); }
+        .nav-btn.disabled { opacity: 0.15; cursor: default; }
+        .nav-btn:not(.disabled):hover { color: var(--terracotta); }
         .prev { right: 10px; } .next { left: 10px; }
 
         #success-modal {
@@ -148,13 +145,11 @@
             background: white; padding: 50px; border-radius: 15px; text-align: center; max-width: 500px; width: 90%;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .modal-content i { font-size: 4rem; color: var(--terracotta); margin-bottom: 20px; }
-        .close-modal-btn { background: var(--terracotta); color: white; border: none; padding: 12px 35px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
         footer { padding: 40px; text-align: center; border-top: 1px solid #eee; background: var(--soft-bg); }
 
-        @media (max-width: 900px) { .contact-container, .features { grid-template-columns: 1fr; gap: 40px; } }
-        @media (max-width: 600px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 900px) { .contact-container, .features { grid-template-columns: 1fr; gap: 40px; } .work-grid { columns: 3 150px; } }
+        @media (max-width: 600px) { .work-grid { columns: 2 120px; } }
     </style>
 </head>
 <body>
@@ -231,7 +226,6 @@
             <h2>קצת עלינו</h2>
             <div class="about-content">
                 <p>סטודיו <strong>ArtDesigner</strong> הוקם מתוך תשוקה לחיבור שבין אסטרטגיה חדה לעיצוב בלתי מתפשר. אנחנו מתמחים ביצירת שפה ויזואלית שמדברת בשם המותג שלכם, תוך דגש על <strong>מינימליזם, ניקיון ודיוק מוחלט</strong>.</p>
-                <p>הגישה שלנו משלבת טכנולוגיית AI מתקדמת עם עקרונות עיצוב קלאסיים, כדי להעניק לכל פרויקט את הערך המוסף שהופך אותו לבלתי נשכח.</p>
             </div>
             <div class="features">
                 <div class="feature-item"><i class="fa-solid fa-microscope"></i><h3>דיוק</h3><p>אנחנו לא מעגלים פינות. כל פיקסל נבחן בזכוכית מגדלת כדי להבטיח תוצאה מושלמת.</p></div>
@@ -244,7 +238,7 @@
     <section id="contact" class="contact-section">
         <div class="contact-container">
             <div class="contact-info">
-                <h2>וואו, איזה עבודות מדהימות,<br>אני גם יכול לקבל כאלו?</h2>
+                <h2>בואו נתחיל פרויקט חדש</h2>
                 <div style="margin-top:20px;">
                     <div class="info-item"><i class="fa-solid fa-phone"></i><span>052-7604121</span></div>
                     <div class="info-item"><i class="fa-solid fa-at"></i><span>ameirm16@gmail.com</span></div>
@@ -273,9 +267,9 @@
 
     <div id="lightbox">
         <span class="close-btn" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></span>
-        <span class="nav-btn prev" onclick="changeImage(-1)"><i class="fa-solid fa-chevron-right"></i></span>
+        <span id="prev-btn" class="nav-btn prev" onclick="changeImage(-1)"><i class="fa-solid fa-chevron-right"></i></span>
         <img id="lightbox-img" src="">
-        <span class="nav-btn next" onclick="changeImage(1)"><i class="fa-solid fa-chevron-left"></i></span>
+        <span id="next-btn" class="nav-btn next" onclick="changeImage(1)"><i class="fa-solid fa-chevron-left"></i></span>
     </div>
 
     <footer><p>&copy; 2026 ArtDesigner | סטודיו לעיצוב</p></footer>
@@ -311,7 +305,7 @@
             btns.forEach(b => b.classList.remove('active'));
             if(event) event.target.classList.add('active');
             items.forEach(item => {
-                item.style.display = (item.classList.contains(category)) ? 'block' : 'none';
+                item.style.display = (item.classList.contains(category)) ? 'inline-block' : 'none';
             });
             updateVisibleImages();
         }
@@ -335,12 +329,39 @@
         }
 
         function closeLightbox() { lightbox.style.display = 'none'; }
-        function updateLightbox() { if (visibleImages.length > 0) lightboxImg.src = visibleImages[currentIdx].src; }
+
+        function updateLightbox() { 
+            if (visibleImages.length > 0) {
+                lightboxImg.src = visibleImages[currentIdx].src;
+            }
+            
+            // עדכון מצב החיצים (ביטול לופ)
+            const prev = document.getElementById('prev-btn');
+            const next = document.getElementById('next-btn');
+            
+            if (currentIdx === 0) prev.classList.add('disabled'); 
+            else prev.classList.remove('disabled');
+            
+            if (currentIdx === visibleImages.length - 1) next.classList.add('disabled');
+            else next.classList.remove('disabled');
+        }
         
         function changeImage(step) {
-            currentIdx = (currentIdx + step + visibleImages.length) % visibleImages.length;
-            updateLightbox();
+            const newIdx = currentIdx + step;
+            // בדיקה שזה לא חורג מגבולות המערך
+            if (newIdx >= 0 && newIdx < visibleImages.length) {
+                currentIdx = newIdx;
+                updateLightbox();
+            }
         }
+
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === "ArrowLeft") changeImage(1); // RTL
+                if (e.key === "ArrowRight") changeImage(-1);
+                if (e.key === "Escape") closeLightbox();
+            }
+        });
 
         function initGallery() {
             document.querySelectorAll('.work-item img').forEach((img) => {
