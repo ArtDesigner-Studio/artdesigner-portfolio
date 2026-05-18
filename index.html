@@ -70,6 +70,7 @@
         .filter-menu {
             display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
             padding: 40px 5% 30px; background-color: var(--soft-bg);
+            scroll-margin-top: 90px; /* מבטיח שהתפריט לא יתחבא מתחת להדר בלחיצה */
         }
 
         .filter-btn {
@@ -93,7 +94,7 @@
         .work-item img { width: 100%; height: auto; display: block; transition: 0.6s; }
         .work-item:hover img { transform: scale(1.03); }
 
-        .about-section { padding: 100px 5%; background-color: var(--soft-bg); text-align: center; border-top: 1px solid #eee; }
+        .about-section { padding: 100px 5%; background-color: var(--soft-bg); text-align: center; border-top: 1px solid #eee; scroll-margin-top: 90px;}
         .about-container { max-width: 900px; margin: 0 auto; }
         .about-section h2 { font-size: 2.5rem; color: var(--dark-teal); margin-bottom: 30px; position: relative; display: inline-block; }
         .about-section h2::after { content: ''; position: absolute; bottom: -10px; left: 20%; right: 20%; height: 3px; background-color: var(--terracotta); }
@@ -103,7 +104,7 @@
         .feature-item { padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .feature-item h3 { color: var(--terracotta); margin-bottom: 15px; font-size: 1.4rem; }
 
-        .contact-section { padding: 100px 5%; background-color: #ffffff; }
+        .contact-section { padding: 100px 5%; background-color: #ffffff; scroll-margin-top: 90px; }
         .contact-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; text-align: right; }
         .contact-info h2 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 20px; }
         
@@ -118,14 +119,12 @@
         .form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
         .submit-btn { width: 100%; padding: 18px; background: var(--dark-teal); color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
 
-        /* לייטבוקס */
         #lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
         #lightbox img { max-width: 85%; max-height: 85%; border: 3px solid white; }
         .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 50px; cursor: pointer; }
         .nav-btn { position: absolute; top: 50%; color: white; font-size: 50px; padding: 20px; cursor: pointer; user-select: none; }
         .prev { right: 10px; } .next { left: 10px; }
 
-        /* מודל הצלחה */
         #success-modal {
             display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(25, 77, 78, 0.9); justify-content: center; align-items: center; backdrop-filter: blur(5px);
@@ -149,28 +148,19 @@
         <a href="#" class="logo-container"><img src="images/logo.svg" alt="ArtDesigner"></a>
         <nav>
             <ul>
-                <li><a href="#work">תיק עבודות</a></li>
+                <li><a href="#filter-menu">תיק עבודות</a></li>
                 <li><a href="#about">אודות</a></li>
                 <li><a href="#contact" class="nav-contact-btn">צור קשר</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="filter-menu">
-        <button class="filter-btn active" onclick="filterGallery('advertising', event)">פרסום</button>
-        <button class="filter-btn" onclick="filterGallery('campaigns', event)">קמפיינים</button>
+    <div id="filter-menu" class="filter-menu">
+        <button class="filter-btn active" onclick="filterGallery('campaigns', event)">קמפיינים</button>
+        <button class="filter-btn" onclick="filterGallery('advertising', event)">פרסום</button>
     </div>
 
     <section id="work" class="work-grid">
-        <div class="work-item advertising"><img src="advertising/advertising_01.jpg" alt="1"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_02.jpg" alt="2"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_03.jpg" alt="3"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_04.jpg" alt="4"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_05.jpg" alt="5"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_06.jpg" alt="6"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_07.jpg" alt="7"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_08.jpg" alt="8"></div>
-
         <div class="work-item campaigns"><img src="campaigns/campaigns_01.jpg" alt="C1"></div>
         <div class="work-item campaigns"><img src="campaigns/campaigns_02.jpg" alt="C2"></div>
         <div class="work-item campaigns"><img src="campaigns/campaigns_03.jpg" alt="C3"></div>
@@ -213,6 +203,15 @@
         <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_23.jpg" alt="T23"></div>
         <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_24.jpg" alt="T24"></div>
         <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_25.jpg" alt="T25"></div>
+
+        <div class="work-item advertising"><img src="advertising/advertising_01.jpg" alt="1"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_02.jpg" alt="2"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_03.jpg" alt="3"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_04.jpg" alt="4"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_05.jpg" alt="5"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_06.jpg" alt="6"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_07.jpg" alt="7"></div>
+        <div class="work-item advertising"><img src="advertising/advertising_08.jpg" alt="8"></div>
     </section>
 
     <section id="about" class="about-section">
@@ -337,7 +336,7 @@
         }
 
         window.onload = () => {
-            filterGallery('advertising');
+            filterGallery('campaigns'); // ברירת מחדל לקמפיינים
             initGallery();
         };
 
