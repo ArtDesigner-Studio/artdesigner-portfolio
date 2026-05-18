@@ -115,12 +115,16 @@
 
         .contact-section { padding: 100px 5%; background-color: #ffffff; scroll-margin-top: 90px; }
         .contact-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; text-align: right; }
-        .contact-info h2 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 20px; }
+        .contact-info h2 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 20px; line-height: 1.2; }
+        .info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .info-item h4 { color: var(--terracotta); font-size: 0.9rem; margin-bottom: 5px; }
+        .info-item span { font-size: 1.2rem; font-weight: 500; color: var(--dark-teal); display: block; }
+        .info-item i { color: var(--terracotta); font-size: 1.25rem; margin-top: 15px; }
         
         .whatsapp-link {
             display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; padding: 12px 24px;
             background-color: var(--whatsapp-green); color: white; text-decoration: none; border-radius: 50px;
-            font-weight: bold; transition: 0.3s;
+            font-weight: bold; transition: 0.3s; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
         }
 
         .contact-form { background: var(--soft-bg); padding: 40px; border-radius: 8px; }
@@ -134,7 +138,6 @@
         .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 35px; cursor: pointer; }
         .nav-btn { position: absolute; top: 50%; color: white; font-size: 40px; padding: 20px; cursor: pointer; user-select: none; transition: 0.3s; }
         .nav-btn.disabled { opacity: 0.15; cursor: default; }
-        .nav-btn:not(.disabled):hover { color: var(--terracotta); }
         .prev { right: 10px; } .next { left: 10px; }
 
         #success-modal {
@@ -145,6 +148,8 @@
             background: white; padding: 50px; border-radius: 15px; text-align: center; max-width: 500px; width: 90%;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .modal-content i { font-size: 4rem; color: var(--terracotta); margin-bottom: 20px; }
+        .close-modal-btn { background: var(--terracotta); color: white; border: none; padding: 12px 35px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
         footer { padding: 40px; text-align: center; border-top: 1px solid #eee; background: var(--soft-bg); }
 
@@ -226,6 +231,7 @@
             <h2>קצת עלינו</h2>
             <div class="about-content">
                 <p>סטודיו <strong>ArtDesigner</strong> הוקם מתוך תשוקה לחיבור שבין אסטרטגיה חדה לעיצוב בלתי מתפשר. אנחנו מתמחים ביצירת שפה ויזואלית שמדברת בשם המותג שלכם, תוך דגש על <strong>מינימליזם, ניקיון ודיוק מוחלט</strong>.</p>
+                <p>הגישה שלנו משלבת טכנולוגיית AI מתקדמת עם עקרונות עיצוב קלאסיים, כדי להעניק לכל פרויקט את הערך המוסף שהופך אותו לבלתי נשכח.</p>
             </div>
             <div class="features">
                 <div class="feature-item"><i class="fa-solid fa-microscope"></i><h3>דיוק</h3><p>אנחנו לא מעגלים פינות. כל פיקסל נבחן בזכוכית מגדלת כדי להבטיח תוצאה מושלמת.</p></div>
@@ -238,10 +244,16 @@
     <section id="contact" class="contact-section">
         <div class="contact-container">
             <div class="contact-info">
-                <h2>בואו נתחיל פרויקט חדש</h2>
+                <h2>וואו, איזה עבודות מדהימות,<br>אני גם יכול לקבל כאלו?</h2>
                 <div style="margin-top:20px;">
-                    <div class="info-item"><i class="fa-solid fa-phone"></i><span>052-7604121</span></div>
-                    <div class="info-item"><i class="fa-solid fa-at"></i><span>ameirm16@gmail.com</span></div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <div><h4>דברו איתי</h4><span>052-7604121</span></div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-at"></i>
+                        <div><h4>שלחו מייל</h4><span>ameirm16@gmail.com</span></div>
+                    </div>
                     <a href="https://wa.me/972527604121" target="_blank" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i> שלחו ווטסאפ</a>
                 </div>
             </div>
@@ -334,21 +346,14 @@
             if (visibleImages.length > 0) {
                 lightboxImg.src = visibleImages[currentIdx].src;
             }
-            
-            // עדכון מצב החיצים (ביטול לופ)
             const prev = document.getElementById('prev-btn');
             const next = document.getElementById('next-btn');
-            
-            if (currentIdx === 0) prev.classList.add('disabled'); 
-            else prev.classList.remove('disabled');
-            
-            if (currentIdx === visibleImages.length - 1) next.classList.add('disabled');
-            else next.classList.remove('disabled');
+            if (currentIdx === 0) prev.classList.add('disabled'); else prev.classList.remove('disabled');
+            if (currentIdx === visibleImages.length - 1) next.classList.add('disabled'); else next.classList.remove('disabled');
         }
         
         function changeImage(step) {
             const newIdx = currentIdx + step;
-            // בדיקה שזה לא חורג מגבולות המערך
             if (newIdx >= 0 && newIdx < visibleImages.length) {
                 currentIdx = newIdx;
                 updateLightbox();
@@ -357,7 +362,7 @@
 
         document.addEventListener('keydown', (e) => {
             if (lightbox.style.display === 'flex') {
-                if (e.key === "ArrowLeft") changeImage(1); // RTL
+                if (e.key === "ArrowLeft") changeImage(1); 
                 if (e.key === "ArrowRight") changeImage(-1);
                 if (e.key === "Escape") closeLightbox();
             }
