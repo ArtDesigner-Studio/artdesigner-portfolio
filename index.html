@@ -37,11 +37,7 @@
             height: 90px;
         }
 
-        .logo-container img { 
-            height: 65px; 
-            width: auto; 
-            display: block;
-        }
+        .logo-container img { height: 65px; width: auto; display: block; }
         
         nav ul { display: flex; list-style: none; gap: 25px; align-items: center; }
         nav a { text-decoration: none; color: var(--dark-teal); font-weight: 600; transition: 0.3s; }
@@ -54,6 +50,20 @@
             border-radius: 50px;
             display: inline-block;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(25, 77, 78, 0.2);
+        }
+
+        .nav-contact-btn:hover {
+            background-color: var(--terracotta);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(3deg); }
+            50% { transform: rotate(-3deg); }
+            75% { transform: rotate(2deg); }
+            100% { transform: rotate(0deg); }
         }
 
         .filter-menu {
@@ -67,9 +77,7 @@
             cursor: pointer; font-weight: 600; transition: 0.3s; border-radius: 4px;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            background-color: var(--terracotta); border-color: var(--terracotta); color: white;
-        }
+        .filter-btn.active { background-color: var(--terracotta); border-color: var(--terracotta); color: white; }
 
         .work-grid {
             columns: 5 200px; column-gap: 15px; padding: 0 5% 60px; background-color: var(--soft-bg);
@@ -88,7 +96,12 @@
         .about-container { max-width: 900px; margin: 0 auto; }
         .about-section h2 { font-size: 2.5rem; color: var(--dark-teal); margin-bottom: 30px; position: relative; display: inline-block; }
         .about-section h2::after { content: ''; position: absolute; bottom: -10px; left: 20%; right: 20%; height: 3px; background-color: var(--terracotta); }
-        
+        .about-content { font-size: 1.25rem; color: #444; line-height: 1.8; margin-top: 20px; }
+
+        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
+        .feature-item { padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .feature-item h3 { color: var(--terracotta); margin-bottom: 15px; font-size: 1.4rem; }
+
         .contact-section { padding: 100px 5%; background-color: #ffffff; }
         .contact-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; text-align: right; }
         .contact-info h2 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 20px; }
@@ -103,26 +116,36 @@
         .form-group { margin-bottom: 20px; }
         .form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
         .submit-btn { width: 100%; padding: 18px; background: var(--dark-teal); color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
-        .submit-btn:disabled { background: #ccc; cursor: not-allowed; }
 
-        #form-message { display: none; margin-top: 15px; color: var(--dark-teal); font-weight: bold; text-align: center; }
-
+        /* לייטבוקס */
         #lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
         #lightbox img { max-width: 85%; max-height: 85%; border: 3px solid white; }
         .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 50px; cursor: pointer; }
+        .nav-btn { position: absolute; top: 50%; color: white; font-size: 50px; padding: 20px; cursor: pointer; user-select: none; }
+        .prev { right: 10px; } .next { left: 10px; }
+
+        /* חלון הצלחה קופץ */
+        #success-modal {
+            display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(25, 77, 78, 0.9); justify-content: center; align-items: center; backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white; padding: 50px; border-radius: 15px; text-align: center; max-width: 500px; width: 90%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes modalPop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .close-modal-btn { background: var(--terracotta); color: white; border: none; padding: 12px 35px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
         footer { padding: 40px; text-align: center; border-top: 1px solid #eee; background: var(--soft-bg); }
 
-        @media (max-width: 900px) { .contact-container { grid-template-columns: 1fr; gap: 40px; } }
+        @media (max-width: 900px) { .contact-container, .features { grid-template-columns: 1fr; gap: 40px; } }
         @media (max-width: 600px) { .work-grid { columns: 2 150px; } }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo-container">
-            <img src="images/logo.svg" alt="ArtDesigner">
-        </a>
+        <a href="#" class="logo-container"><img src="images/logo.svg" alt="ArtDesigner"></a>
         <nav>
             <ul>
                 <li><a href="#work">תיק עבודות</a></li>
@@ -149,12 +172,67 @@
 
         <div class="work-item campaigns"><img src="campaigns/campaigns_01.jpg" alt="C1"></div>
         <div class="work-item campaigns"><img src="campaigns/campaigns_02.jpg" alt="C2"></div>
-        </section>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_03.jpg" alt="C3"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_04.jpg" alt="C4"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_05.jpg" alt="C5"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_06.jpg" alt="C6"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_07.jpg" alt="C7"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_08.jpg" alt="C8"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_10.jpg" alt="C10"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_11.jpg" alt="C11"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_12.jpg" alt="C12"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_13.jpg" alt="C13"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_14.jpg" alt="C14"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_15.jpg" alt="C15"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_16.jpg" alt="C16"></div>
+        <div class="work-item campaigns"><img src="campaigns/campaigns_17.jpg" alt="C17"></div>
+
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_01.jpg" alt="T1"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_02.jpg" alt="T2"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_03.jpg" alt="T3"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_04.jpg" alt="T4"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_05.jpg" alt="T5"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_06.jpg" alt="T6"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_07.jpg" alt="T7"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_08.jpg" alt="T8"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_09.jpg" alt="T9"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_10.jpg" alt="T10"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_11.jpg" alt="T11"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_12.jpg" alt="T12"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_13.jpg" alt="T13"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_14.jpg" alt="T14"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_15.jpg" alt="T15"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_16.jpg" alt="T16"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_17.jpg" alt="T17"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_18.jpg" alt="T18"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_19.jpg" alt="T19"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_20.jpg" alt="T20"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_21.jpg" alt="T21"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_22.jpg" alt="T22"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_23.jpg" alt="T23"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_24.jpg" alt="T24"></div>
+        <div class="work-item campaigns"><img src="torani-chaisidi/torani-chaisidi_25.jpg" alt="T25"></div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <h2>קצת עלינו</h2>
+            <div class="about-content">
+                <p>סטודיו <strong>ArtDesigner</strong> הוקם מתוך תשוקה לחיבור שבין אסטרטגיה חדה לעיצוב בלתי מתפשר. אנחנו מתמחים ביצירת שפה ויזואלית שמדברת בשם המותג שלכם, תוך דגש על <strong>מינימליזם, ניקיון ודיוק מוחלט</strong>.</p>
+                <p>הגישה שלנו משלבת טכנולוגיית AI מתקדמת עם עקרונות עיצוב קלאסיים, כדי להעניק לכל פרויקט את הערך המוסף שהופך אותו לבלתי נשכח.</p>
+            </div>
+            <div class="features">
+                <div class="feature-item"><h3>דיוק</h3><p>אנחנו לא מעגלים פינות. כל פיקסל נבחן בזכוכית מגדלת כדי להבטיח תוצאה מושלמת.</p></div>
+                <div class="feature-item"><h3>חדשנות</h3><p>שימוש בכלי הבינה המלאכותית המובילים בעולם כדי לייצר ויז'ואלים ייחודיים שטרם נראו.</p></div>
+                <div class="feature-item"><h3>נשמה</h3><p>כל מותג מקבל את מלוא תשומת הלב, עם הבנה עמוקה של הערכים והמטרות שלו.</p></div>
+            </div>
+        </div>
+    </section>
 
     <section id="contact" class="contact-section">
         <div class="contact-container">
             <div class="contact-info">
-                <h2>בואו נתחיל פרויקט חדש</h2>
+                <h2>וואו, איזה עבודות מדהימות,<br>אני גם יכול לקבל כאלו?</h2>
                 <div style="margin-top:20px;">
                     <p>052-7604121</p>
                     <p>ameirm16@gmail.com</p>
@@ -167,36 +245,42 @@
                     <div class="form-group"><input type="email" name="email" placeholder="אימייל" required></div>
                     <div class="form-group"><textarea name="message" rows="5" placeholder="ספרו לי על הצורך שלכם..." required></textarea></div>
                     <button type="submit" class="submit-btn" id="submit-btn">שליחת הודעה</button>
-                    <div id="form-message">ההודעה נשלחה בהצלחה!</div>
                 </form>
             </div>
         </div>
     </section>
 
+    <div id="success-modal">
+        <div class="modal-content">
+            <h3>כן, כן, ראינו! 🎨</h3>
+            <p>ההודעה שלך נחתה בסטודיו שלנו בדיוק על הפיקסל. <br> אנחנו כבר מתחילים לחדד את העפרונות ונחזור אליך בקרוב מאוד.</p>
+            <button class="close-modal-btn" onclick="closeSuccessModal()">מעולה, מחכה!</button>
+        </div>
+    </div>
+
     <div id="lightbox">
         <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <span class="nav-btn prev" onclick="changeImage(-1)">&#10095;</span>
         <img id="lightbox-img" src="">
+        <span class="nav-btn next" onclick="changeImage(1)">&#10094;</span>
     </div>
 
     <footer><p>&copy; 2026 ArtDesigner | סטודיו לעיצוב</p></footer>
 
     <script>
-        // כתובת הסקריפט שנתת לי
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyr9gKuTs3BjFdmSKTQHIVhvl7jeP1g5Bk0fvZmqT885lJtnl53c27P_bFFheSQOxPb/exec';
         const form = document.getElementById('contact-form');
         const btn = document.getElementById('submit-btn');
-        const msg = document.getElementById('form-message');
 
-        // פונקציית שליחת הטופס
         form.addEventListener('submit', e => {
             e.preventDefault();
             btn.disabled = true;
             btn.innerText = 'שולח...';
-
             fetch(scriptURL, { method: 'POST', body: new FormData(form)})
                 .then(response => {
-                    btn.style.display = 'none';
-                    msg.style.display = 'block';
+                    document.getElementById('success-modal').style.display = 'flex';
+                    btn.disabled = false;
+                    btn.innerText = 'שליחת הודעה';
                     form.reset();
                 })
                 .catch(error => {
@@ -206,32 +290,56 @@
                 });
         });
 
-        // פונקציות הגלריה
+        function closeSuccessModal() { document.getElementById('success-modal').style.display = 'none'; }
+
         function filterGallery(category, event) {
             const items = document.querySelectorAll('.work-item');
             const btns = document.querySelectorAll('.filter-btn');
-            btns.forEach(btn => btn.classList.remove('active'));
+            btns.forEach(b => b.classList.remove('active'));
             if(event) event.target.classList.add('active');
             items.forEach(item => {
                 item.style.display = (item.classList.contains(category)) ? 'inline-block' : 'none';
             });
+            updateVisibleImages();
+        }
+
+        let currentIdx = 0;
+        let visibleImages = [];
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function updateVisibleImages() {
+            visibleImages = Array.from(document.querySelectorAll('.work-item'))
+                .filter(item => item.style.display !== 'none')
+                .map(item => item.querySelector('img'));
+        }
+
+        function openLightbox(img) {
+            updateVisibleImages();
+            currentIdx = visibleImages.indexOf(img);
+            lightbox.style.display = 'flex';
+            updateLightbox();
+        }
+
+        function closeLightbox() { lightbox.style.display = 'none'; }
+        function updateLightbox() { if (visibleImages.length > 0) lightboxImg.src = visibleImages[currentIdx].src; }
+        function changeImage(step) {
+            currentIdx = (currentIdx + step + visibleImages.length) % visibleImages.length;
+            updateLightbox();
         }
 
         function initGallery() {
             document.querySelectorAll('.work-item img').forEach((img) => {
-                img.onclick = () => {
-                    document.getElementById('lightbox').style.display = 'flex';
-                    document.getElementById('lightbox-img').src = img.src;
-                };
+                img.onclick = () => openLightbox(img);
             });
         }
-
-        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
 
         window.onload = () => {
             filterGallery('advertising');
             initGallery();
         };
+
+        lightbox.onclick = (e) => { if (e.target === lightbox) closeLightbox(); };
     </script>
 </body>
 </html>
