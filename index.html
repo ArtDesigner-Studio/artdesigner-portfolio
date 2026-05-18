@@ -83,14 +83,22 @@
 
         .filter-btn.active { background-color: var(--terracotta); border-color: var(--terracotta); color: white; }
 
+        /* תיקון הגלריה ל-Grid יציב כדי למנוע חורים */
         .work-grid {
-            columns: 5 200px; column-gap: 15px; padding: 0 5% 60px; background-color: var(--soft-bg);
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            padding: 0 5% 60px;
+            background-color: var(--soft-bg);
         }
 
         .work-item {
-            break-inside: avoid; margin-bottom: 15px; background-color: #fff;
-            border-radius: 2px; cursor: pointer; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: inline-block; width: 100%;
+            background-color: #fff;
+            border-radius: 2px;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            width: 100%;
         }
 
         .work-item img { width: 100%; height: auto; display: block; transition: 0.6s; }
@@ -100,7 +108,8 @@
         .about-container { max-width: 900px; margin: 0 auto; }
         .about-section h2 { font-size: 2.5rem; color: var(--dark-teal); margin-bottom: 30px; position: relative; display: inline-block; }
         .about-section h2::after { content: ''; position: absolute; bottom: -10px; left: 20%; right: 20%; height: 3px; background-color: var(--terracotta); }
-        
+        .about-content { font-size: 1.25rem; color: #444; line-height: 1.8; margin-top: 20px; }
+
         .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
         .feature-item { padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .feature-item i { font-size: 2rem; color: var(--terracotta); margin-bottom: 15px; }
@@ -145,7 +154,7 @@
         footer { padding: 40px; text-align: center; border-top: 1px solid #eee; background: var(--soft-bg); }
 
         @media (max-width: 900px) { .contact-container, .features { grid-template-columns: 1fr; gap: 40px; } }
-        @media (max-width: 600px) { .work-grid { columns: 2 150px; } }
+        @media (max-width: 600px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
@@ -167,8 +176,6 @@
     </div>
 
     <section id="work" class="work-grid">
-        <div class="work-item campaigns"><img src="campaigns/campaigns_01.jpg" alt="C1"></div>
-        <div class="work-item campaigns"><img src="campaigns/campaigns_02.jpg" alt="C2"></div>
         <div class="work-item campaigns"><img src="campaigns/campaigns_03.jpg" alt="C3"></div>
         <div class="work-item campaigns"><img src="campaigns/campaigns_04.jpg" alt="C4"></div>
         <div class="work-item campaigns"><img src="campaigns/campaigns_05.jpg" alt="C5"></div>
@@ -216,7 +223,6 @@
         <div class="work-item advertising"><img src="advertising/advertising_04.jpg" alt="4"></div>
         <div class="work-item advertising"><img src="advertising/advertising_05.jpg" alt="5"></div>
         <div class="work-item advertising"><img src="advertising/advertising_06.jpg" alt="6"></div>
-        <div class="work-item advertising"><img src="advertising/advertising_07.jpg" alt="7"></div>
         <div class="work-item advertising"><img src="advertising/advertising_08.jpg" alt="8"></div>
     </section>
 
@@ -238,7 +244,7 @@
     <section id="contact" class="contact-section">
         <div class="contact-container">
             <div class="contact-info">
-                <h2>בואו נתחיל פרויקט חדש</h2>
+                <h2>וואו, איזה עבודות מדהימות,<br>אני גם יכול לקבל כאלו?</h2>
                 <div style="margin-top:20px;">
                     <div class="info-item"><i class="fa-solid fa-phone"></i><span>052-7604121</span></div>
                     <div class="info-item"><i class="fa-solid fa-at"></i><span>ameirm16@gmail.com</span></div>
@@ -305,7 +311,7 @@
             btns.forEach(b => b.classList.remove('active'));
             if(event) event.target.classList.add('active');
             items.forEach(item => {
-                item.style.display = (item.classList.contains(category)) ? 'inline-block' : 'none';
+                item.style.display = (item.classList.contains(category)) ? 'block' : 'none';
             });
             updateVisibleImages();
         }
