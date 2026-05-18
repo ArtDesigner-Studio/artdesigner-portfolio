@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ArtDesigner | Portfolio Studio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
             --dark-teal: #194d4e;    
@@ -70,13 +71,14 @@
         .filter-menu {
             display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
             padding: 40px 5% 30px; background-color: var(--soft-bg);
-            scroll-margin-top: 90px; /* מבטיח שהתפריט לא יתחבא מתחת להדר בלחיצה */
+            scroll-margin-top: 90px;
         }
 
         .filter-btn {
             padding: 8px 22px; border: 1.5px solid var(--dark-teal);
             background: transparent; color: var(--dark-teal);
             cursor: pointer; font-weight: 600; transition: 0.3s; border-radius: 4px;
+            display: flex; align-items: center; gap: 8px;
         }
 
         .filter-btn.active { background-color: var(--terracotta); border-color: var(--terracotta); color: white; }
@@ -98,15 +100,17 @@
         .about-container { max-width: 900px; margin: 0 auto; }
         .about-section h2 { font-size: 2.5rem; color: var(--dark-teal); margin-bottom: 30px; position: relative; display: inline-block; }
         .about-section h2::after { content: ''; position: absolute; bottom: -10px; left: 20%; right: 20%; height: 3px; background-color: var(--terracotta); }
-        .about-content { font-size: 1.25rem; color: #444; line-height: 1.8; margin-top: 20px; }
-
+        
         .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
         .feature-item { padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .feature-item h3 { color: var(--terracotta); margin-bottom: 15px; font-size: 1.4rem; }
+        .feature-item i { font-size: 2rem; color: var(--terracotta); margin-bottom: 15px; }
+        .feature-item h3 { color: var(--dark-teal); margin-bottom: 10px; font-size: 1.4rem; }
 
         .contact-section { padding: 100px 5%; background-color: #ffffff; scroll-margin-top: 90px; }
         .contact-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; text-align: right; }
         .contact-info h2 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 20px; }
+        .info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .info-item i { color: var(--terracotta); font-size: 1.25rem; }
         
         .whatsapp-link {
             display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; padding: 12px 24px;
@@ -115,14 +119,16 @@
         }
 
         .contact-form { background: var(--soft-bg); padding: 40px; border-radius: 8px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
-        .submit-btn { width: 100%; padding: 18px; background: var(--dark-teal); color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
+        .form-group { margin-bottom: 20px; position: relative; }
+        .form-group i { position: absolute; right: 15px; top: 18px; color: #aaa; }
+        .form-group input, .form-group textarea { width: 100%; padding: 15px 45px 15px 15px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
+        .submit-btn { width: 100%; padding: 18px; background: var(--dark-teal); color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; display: flex; justify-content: center; align-items: center; gap: 10px; }
 
         #lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
         #lightbox img { max-width: 85%; max-height: 85%; border: 3px solid white; }
-        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 50px; cursor: pointer; }
-        .nav-btn { position: absolute; top: 50%; color: white; font-size: 50px; padding: 20px; cursor: pointer; user-select: none; }
+        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 35px; cursor: pointer; }
+        .nav-btn { position: absolute; top: 50%; color: white; font-size: 40px; padding: 20px; cursor: pointer; user-select: none; transition: 0.3s; }
+        .nav-btn:hover { color: var(--terracotta); }
         .prev { right: 10px; } .next { left: 10px; }
 
         #success-modal {
@@ -133,7 +139,7 @@
             background: white; padding: 50px; border-radius: 15px; text-align: center; max-width: 500px; width: 90%;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        @keyframes modalPop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .modal-content i { font-size: 4rem; color: var(--terracotta); margin-bottom: 20px; }
         .close-modal-btn { background: var(--terracotta); color: white; border: none; padding: 12px 35px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
         footer { padding: 40px; text-align: center; border-top: 1px solid #eee; background: var(--soft-bg); }
@@ -150,14 +156,14 @@
             <ul>
                 <li><a href="#filter-menu">תיק עבודות</a></li>
                 <li><a href="#about">אודות</a></li>
-                <li><a href="#contact" class="nav-contact-btn">צור קשר</a></li>
+                <li><a href="#contact" class="nav-contact-btn"><i class="fa-regular fa-envelope"></i> צור קשר</a></li>
             </ul>
         </nav>
     </header>
 
     <div id="filter-menu" class="filter-menu">
-        <button class="filter-btn active" onclick="filterGallery('campaigns', event)">קמפיינים</button>
-        <button class="filter-btn" onclick="filterGallery('advertising', event)">פרסום</button>
+        <button class="filter-btn active" onclick="filterGallery('campaigns', event)"><i class="fa-solid fa-bullhorn"></i> קמפיינים</button>
+        <button class="filter-btn" onclick="filterGallery('advertising', event)"><i class="fa-solid fa-layer-group"></i> פרסום</button>
     </div>
 
     <section id="work" class="work-grid">
@@ -222,9 +228,9 @@
                 <p>הגישה שלנו משלבת טכנולוגיית AI מתקדמת עם עקרונות עיצוב קלאסיים, כדי להעניק לכל פרויקט את הערך המוסף שהופך אותו לבלתי נשכח.</p>
             </div>
             <div class="features">
-                <div class="feature-item"><h3>דיוק</h3><p>אנחנו לא מעגלים פינות. כל פיקסל נבחן בזכוכית מגדלת כדי להבטיח תוצאה מושלמת.</p></div>
-                <div class="feature-item"><h3>חדשנות</h3><p>שימוש בכלי הבינה המלאכותית המובילים בעולם כדי לייצר ויז'ואלים ייחודיים שטרם נראו.</p></div>
-                <div class="feature-item"><h3>נשמה</h3><p>כל מותג מקבל את מלוא תשומת הלב, עם הבנה עמוקה של הערכים והמטרות שלו.</p></div>
+                <div class="feature-item"><i class="fa-solid fa-microscope"></i><h3>דיוק</h3><p>אנחנו לא מעגלים פינות. כל פיקסל נבחן בזכוכית מגדלת כדי להבטיח תוצאה מושלמת.</p></div>
+                <div class="feature-item"><i class="fa-solid fa-wand-magic-sparkles"></i><h3>חדשנות</h3><p>שימוש בכלי הבינה המלאכותית המובילים בעולם כדי לייצר ויז'ואלים ייחודיים שטרם נראו.</p></div>
+                <div class="feature-item"><i class="fa-solid fa-gem"></i><h3>נשמה</h3><p>כל מותג מקבל את מלוא תשומת הלב, עם הבנה עמוקה של הערכים והמטרות שלו.</p></div>
             </div>
         </div>
     </section>
@@ -232,19 +238,19 @@
     <section id="contact" class="contact-section">
         <div class="contact-container">
             <div class="contact-info">
-                <h2>וואו, איזה עבודות מדהימות,<br>אני גם יכול לקבל כאלו?</h2>
+                <h2>בואו נתחיל פרויקט חדש</h2>
                 <div style="margin-top:20px;">
-                    <p>052-7604121</p>
-                    <p>ameirm16@gmail.com</p>
-                    <a href="https://wa.me/972527604121" target="_blank" class="whatsapp-link">שלחו ווטסאפ</a>
+                    <div class="info-item"><i class="fa-solid fa-phone"></i><span>052-7604121</span></div>
+                    <div class="info-item"><i class="fa-solid fa-at"></i><span>ameirm16@gmail.com</span></div>
+                    <a href="https://wa.me/972527604121" target="_blank" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i> שלחו ווטסאפ</a>
                 </div>
             </div>
             <div class="contact-form">
                 <form id="contact-form">
-                    <div class="form-group"><input type="text" name="name" placeholder="שם מלא" required></div>
-                    <div class="form-group"><input type="email" name="email" placeholder="אימייל" required></div>
-                    <div class="form-group"><textarea name="message" rows="5" placeholder="השדה הזה סתם בשביל הרושם, אבל תרשום תרשום..." required></textarea></div>
-                    <button type="submit" class="submit-btn" id="submit-btn">שליחת הודעה</button>
+                    <div class="form-group"><i class="fa-solid fa-user"></i><input type="text" name="name" placeholder="שם מלא" required></div>
+                    <div class="form-group"><i class="fa-solid fa-envelope"></i><input type="email" name="email" placeholder="אימייל" required></div>
+                    <div class="form-group"><i class="fa-solid fa-pen"></i><textarea name="message" rows="5" placeholder="השדה הזה סתם בשביל הרושם, אבל תרשום תרשום..." required></textarea></div>
+                    <button type="submit" class="submit-btn" id="submit-btn"><i class="fa-solid fa-paper-plane"></i> שליחת הודעה</button>
                 </form>
             </div>
         </div>
@@ -252,6 +258,7 @@
 
     <div id="success-modal">
         <div class="modal-content">
+            <i class="fa-solid fa-circle-check"></i>
             <h3>כן, כן, ראינו! 🎨</h3>
             <p>ההודעה שלך נחתה בסטודיו שלנו בדיוק על הפיקסל. <br> אנחנו כבר מתחילים לחדד את העפרונות ונחזור אליך בקרוב מאוד.</p>
             <button class="close-modal-btn" onclick="closeSuccessModal()">מעולה, מחכה!</button>
@@ -259,10 +266,10 @@
     </div>
 
     <div id="lightbox">
-        <span class="close-btn" onclick="closeLightbox()">&times;</span>
-        <span class="nav-btn prev" onclick="changeImage(-1)">&#10095;</span>
+        <span class="close-btn" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></span>
+        <span class="nav-btn prev" onclick="changeImage(-1)"><i class="fa-solid fa-chevron-right"></i></span>
         <img id="lightbox-img" src="">
-        <span class="nav-btn next" onclick="changeImage(1)">&#10094;</span>
+        <span class="nav-btn next" onclick="changeImage(1)"><i class="fa-solid fa-chevron-left"></i></span>
     </div>
 
     <footer><p>&copy; 2026 ArtDesigner | סטודיו לעיצוב</p></footer>
@@ -275,17 +282,17 @@
         form.addEventListener('submit', e => {
             e.preventDefault();
             btn.disabled = true;
-            btn.innerText = 'שולח...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> שולח...';
             fetch(scriptURL, { method: 'POST', body: new FormData(form)})
                 .then(response => {
                     document.getElementById('success-modal').style.display = 'flex';
                     btn.disabled = false;
-                    btn.innerText = 'שליחת הודעה';
+                    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> שליחת הודעה';
                     form.reset();
                 })
                 .catch(error => {
                     btn.disabled = false;
-                    btn.innerText = 'שליחת הודעה';
+                    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> שליחת הודעה';
                     alert('חלה שגיאה בשליחה.');
                 });
         });
@@ -336,7 +343,7 @@
         }
 
         window.onload = () => {
-            filterGallery('campaigns'); // ברירת מחדל לקמפיינים
+            filterGallery('campaigns');
             initGallery();
         };
 
