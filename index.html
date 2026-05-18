@@ -87,12 +87,13 @@
             background-color: var(--terracotta); border-color: var(--terracotta); color: white;
         }
 
+        /* עדכון ל-5 עמודות כדי להקטין את התמונות */
         .work-grid {
-            columns: 3 300px; column-gap: 20px; padding: 0 5% 60px; background-color: var(--soft-bg);
+            columns: 5 200px; column-gap: 15px; padding: 0 5% 60px; background-color: var(--soft-bg);
         }
 
         .work-item {
-            break-inside: avoid; margin-bottom: 20px; background-color: #fff;
+            break-inside: avoid; margin-bottom: 15px; background-color: #fff;
             border-radius: 2px; cursor: pointer; overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: inline-block; width: 100%;
         }
@@ -100,7 +101,6 @@
         .work-item img { width: 100%; height: auto; display: block; transition: 0.6s; }
         .work-item:hover img { transform: scale(1.03); }
 
-        /* אודות */
         .about-section { padding: 100px 5%; background-color: var(--soft-bg); text-align: center; border-top: 1px solid #eee; }
         .about-container { max-width: 900px; margin: 0 auto; }
         .about-section h2 { font-size: 2.5rem; color: var(--dark-teal); margin-bottom: 30px; position: relative; display: inline-block; }
@@ -110,7 +110,6 @@
         .feature-item { padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .feature-item h3 { color: var(--terracotta); margin-bottom: 15px; font-size: 1.4rem; }
 
-        /* צור קשר */
         .contact-section { padding: 100px 5%; background-color: #ffffff; }
         .contact-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; text-align: right; }
         .contact-info h2 { font-size: 2.2rem; color: var(--dark-teal); margin-bottom: 20px; line-height: 1.2; }
@@ -160,8 +159,7 @@
     </header>
 
     <div class="filter-menu">
-        <button class="filter-btn active" onclick="filterGallery('all', event)">הכל</button>
-        <button class="filter-btn" onclick="filterGallery('advertising', event)">פרסום</button>
+        <button class="filter-btn active" onclick="filterGallery('advertising', event)">פרסום</button>
         <button class="filter-btn" onclick="filterGallery('campaigns', event)">קמפיינים</button>
     </div>
 
@@ -272,7 +270,7 @@
             btns.forEach(btn => btn.classList.remove('active'));
             if(event) event.target.classList.add('active');
             items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) { item.style.display = 'inline-block'; } 
+                if (item.classList.contains(category)) { item.style.display = 'inline-block'; } 
                 else { item.style.display = 'none'; }
             });
             updateVisibleImages();
@@ -325,8 +323,11 @@
             }
         });
 
-        initGallery();
-        updateVisibleImages();
+        // הפעלה ראשונית על קטגוריית פרסום
+        window.onload = () => {
+            filterGallery('advertising');
+            initGallery();
+        };
     </script>
 </body>
 </html>
